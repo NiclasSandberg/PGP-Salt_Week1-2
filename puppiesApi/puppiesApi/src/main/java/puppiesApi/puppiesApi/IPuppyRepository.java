@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface IPuppyRepository extends JpaRepository<Puppy, Long> {
     Optional<Puppy> findById(long id);
     List<Puppy> findByBreedContaining(String breed);
+    void delete(long id);
 }

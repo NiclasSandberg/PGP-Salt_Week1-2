@@ -50,11 +50,37 @@ public class PuppyController {
     @PostMapping("/puppies")
     public ResponseEntity<Puppy> createPuppy(@RequestBody Puppy puppy){
         try {
+            System.out.println("inside TRY POST...");
             Puppy _puppy = ipuppyRepository
                     .save(new Puppy(puppy.getBreed(), puppy.getName(),puppy.getBirthDate()));
                     return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e){
+            System.out.println("INSIDE EXCEPTION POST");
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @PutMapping("/puppies/{id}")
+    public ResponseEntity<Puppy> updatePuppy(@PathVariable("id") long id, @RequestBody Puppy puppy){
+        Optional<Puppy> puppyData = ipuppyRepository.findById(id);
+        if(puppyData.isPresent()){
+            Puppy _puppy = puppyData.get();
+            _puppy.setName(puppy.getName());
+            _puppy.setBreed(puppy.getBreed());
+            _puppy.setBirthDate(puppy.getBirthDate());
+
+            return new ResponseEntity<>(ipuppyRepository.save(_puppy), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @DeleteMapping("/puppies/{id}")
+    public ResponseEntity<Puppy> deletePuppy(@PathVariable("id") long id){
+
+       try{
+            ipuppyRepository.delete(id);
+           return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (Exception e) {
+           return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+       }
     }
 }
