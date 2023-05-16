@@ -12,17 +12,18 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/puppy")
 public class PuppyController {
 
     @Autowired
     IPuppyRepository ipuppyRepository;
 
+
     @GetMapping("/puppies")
     public ResponseEntity<List<Puppy>> getAllPuppies(@RequestParam(required = false) String breed){
         try {
-            List<Puppy> puppies = new ArrayList<Puppy>();
+            List<Puppy> puppies = new ArrayList<>();
             if(breed == null)
                 ipuppyRepository.findAll().forEach(puppies::add);
             else
