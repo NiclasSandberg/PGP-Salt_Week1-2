@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import { IPuppy } from './interfaces';
 import Gallery from './Components/Gallery';
+import { addNewPupp } from './Components/api';
+import AddPuppieForm from './Components/AddPuppieForm';
 
 
 interface thePuppies {
@@ -10,7 +12,7 @@ interface thePuppies {
 }
 
 interface PuppiesPhoto {
-  urls:any
+  urls?:string
 }
 
 function App() {
@@ -18,28 +20,32 @@ function App() {
   const [puppies, setPuppies] = useState<IPuppy[]>([]);
   const [puppiesPhoto, setPuppiesPhoto] = useState<PuppiesPhoto[]>([]);
 
+  const addNewPuppie = async (newPup: Partial<thePuppies>) => {
+    const puppie = await addNewPupp(newPup);
+    setPuppies([...puppies, puppie]);
+   
+  }
+
+
   useEffect(() => {
 
     const getPuppies = async () => {
       const response = await fetch("http://localhost:8080/puppy/puppies")
       const json = await response.json();
-      return json;
+      setPuppies(json);
     }
-    const getPhoto = async () => {
-      const response1 = await fetch(`https://api.unsplash.com/search/photos?query=labrador+dog&client_id=HT6MXot1lxxX_egVZ7bLMjyOUwUEOQuIWbJpTNGR2es`);
-      const responseData1 = await response1.json();
-      setPuppiesPhoto(responseData1.results);
-    }
-    getPuppies().then(setPuppies).then(getPhoto);
-  },[])
+    
+    getPuppies();
+  },[puppies])
+  
+
 
   return (
     <div className="App">
       <h1>Welcome to the Puppies App!</h1>
-      <Gallery puppies={puppies}/>
-      {puppiesPhoto && 
-    <img src={puppiesPhoto[0].urls.small} alt="" />
-      }
+      <AddPuppieForm addNewPuppie={addNewPuppie} />
+      <Gallery puppies={puppies} />
+      
     </div>
   );
 }

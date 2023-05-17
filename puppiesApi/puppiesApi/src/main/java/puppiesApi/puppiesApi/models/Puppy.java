@@ -12,8 +12,13 @@ public class Puppy {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+
     @Column
     private String breed;
+
+    public Puppy(String name) {
+        this.name = name;
+    }
 
     @Column
     private String name;
@@ -21,14 +26,20 @@ public class Puppy {
     @Column
     private Date birthDate;
 
-    public Puppy(){
+    @Column
+    private String photoUrl;
 
-    }
-    public Puppy(String breed, String name, Date birthDate) {
+    public Puppy(String breed, String name, Date birthDate, String photoUrl) {
         this.breed = breed;
         this.name = name;
         this.birthDate = birthDate;
+        this.photoUrl = photoUrl;
     }
+
+    public Puppy(){
+
+    }
+
 
 
     public String getBreed() {
@@ -55,6 +66,14 @@ public class Puppy {
         this.birthDate = birthDate;
     }
 
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
     @Override
     public String toString() {
         return "Puppy{" +
@@ -62,6 +81,7 @@ public class Puppy {
                 ", breed='" + breed + '\'' +
                 ", name='" + name + '\'' +
                 ", birthDate=" + birthDate +
+                ", photoUrl='" + photoUrl + '\'' +
                 '}';
     }
 

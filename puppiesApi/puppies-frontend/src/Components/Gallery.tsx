@@ -12,7 +12,7 @@ const Gallery = ({puppies}:GalleryProps) => {
   return (
     <div className="gallery-container">
       {puppies && puppies.map((puppy) => {
-           return <Card puppy={puppy} key={puppy.name}/>
+           return <Card puppy={puppy}  />
         })} 
         
     </div>

@@ -53,8 +53,8 @@ public class PuppyController {
         try {
             System.out.println("inside TRY POST...");
             Puppy _puppy = ipuppyRepository
-                    .save(new Puppy(puppy.getBreed(), puppy.getName(),puppy.getBirthDate()));
-                    return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+                    .save(new Puppy(puppy.getBreed(), puppy.getName(),puppy.getBirthDate(), puppy.getPhotoUrl()));
+                    return new ResponseEntity<>(_puppy, HttpStatus.CREATED);
         } catch (Exception e){
             System.out.println("INSIDE EXCEPTION POST");
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

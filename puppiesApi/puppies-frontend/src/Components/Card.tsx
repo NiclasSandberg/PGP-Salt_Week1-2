@@ -11,9 +11,12 @@ const Card = ({puppy}:CardProps) => {
   return (
     <>
     <div className="card-container">
-    <h1>{puppy.name}</h1>
-    <p>{puppy.breed}</p>
-    <p>{puppy.birthDate.substring(0,10)}</p>
+    <div className="image-container">
+   <img src={puppy?.photoUrl} alt="" />
+   </div>
+    <h1>{puppy?.name}</h1>
+    <p>{puppy?.breed}</p>
+    <p>{puppy?.birthDate?.substring(0,10)}</p>
     </div>
     </>
   )
