@@ -1,5 +1,11 @@
-export const addNewPupp = async (pup: any) => {
-    console.log(pup);
+import { IPuppy } from "../interfaces";
+
+interface getPuppies{
+  puppies: IPuppy[];
+}
+
+export const addNewPupp = async (pup: getPuppies) => {
+   
    
     const response = await fetch("http://localhost:8080/puppy/puppies", {
       method: "POST",
@@ -8,6 +14,16 @@ export const addNewPupp = async (pup: any) => {
         "content-type": "application/json",
       },
     });
-    const json = (await response.json()) as { developer: any };
+    const json = (await response.json()) as { developer: IPuppy };
     return json.developer;
+  };
+
+  export const deletePupp = async (puppId: number) => {
+    console.log(puppId);
+    const response = await fetch(
+      `http://localhost:8080/puppy/puppies/${puppId}`,
+      {
+        method: "DELETE",
+      }
+    );
   };

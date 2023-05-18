@@ -12,13 +12,8 @@ public class Puppy {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-
     @Column
     private String breed;
-
-    public Puppy(String name) {
-        this.name = name;
-    }
 
     @Column
     private String name;
@@ -29,7 +24,8 @@ public class Puppy {
     @Column
     private String photoUrl;
 
-    public Puppy(String breed, String name, Date birthDate, String photoUrl) {
+    public Puppy(long id,String breed, String name, Date birthDate, String photoUrl) {
+        this.id = id;
         this.breed = breed;
         this.name = name;
         this.birthDate = birthDate;
@@ -40,8 +36,13 @@ public class Puppy {
 
     }
 
+    public long getId() {
+        return id;
+    }
 
-
+    public void setId(long id) {
+        this.id = id;
+    }
     public String getBreed() {
         return breed;
     }
