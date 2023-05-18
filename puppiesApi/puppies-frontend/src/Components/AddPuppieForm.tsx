@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useEffect, useRef, useState } from 'react'
 import { IPuppy } from '../interfaces';
 import { addNewPupp } from './api';
+import './AddPuppieForm.css';
 
 interface addPuppieFormProps {
   addNewPuppie: (pup: any) => void;
@@ -56,7 +57,6 @@ const AddPuppieForm = ({ addNewPuppie }: addPuppieFormProps) => {
           ref={dateInputRef}
           onChange={(e) => setDate(e.target.value)}
         />
-        <p>Selected Date: {date}</p>
         <button>Add</button>
       </form>
     </>

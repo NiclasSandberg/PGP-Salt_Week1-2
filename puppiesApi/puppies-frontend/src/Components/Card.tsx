@@ -3,6 +3,7 @@ import { IPuppy } from '../interfaces'
 import './Card.css';
 import { deletePupp } from './api';
 import { Link } from 'react-router-dom';
+import EditPuppy from '../Pages/EditPuppy';
 
 interface CardProps {
   puppy: IPuppy
@@ -22,17 +23,16 @@ const Card = ({ puppy }: CardProps) => {
           onClick={() => {
             deletePup()
           }}>X</div>
-        <Link to={"/editpuppy"}>
+        <Link to={"/editpuppy/"+puppy?.id}>
           <div className="image-container">
             <img src={puppy?.photoUrl} alt="" />
           </div>
         </Link>
-        <h1>{puppy?.name}</h1>
+        <h2>{puppy?.name}</h2>
         <p>{puppy?.breed}</p>
-        <p>{puppy?.birthDate?.toString().substring(0, 10)}</p>
-        <p>ID: {puppy?.id}</p>
-
+    
       </div>
+      
     </>
   )
 }

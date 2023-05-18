@@ -1,7 +1,7 @@
 export interface IPuppy {
-    id:number
-    breed:string,
-    name:string,
-    birthDate:Date
+    id?:number|string
+    breed?:string,
+    name?:string,
+    birthDate?:Date
     photoUrl?:string
 }

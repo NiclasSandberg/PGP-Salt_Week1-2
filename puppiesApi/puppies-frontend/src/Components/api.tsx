@@ -18,7 +18,7 @@ export const addNewPupp = async (pup: getPuppies) => {
     return json.developer;
   };
 
-  export const deletePupp = async (puppId: number) => {
+  export const deletePupp = async (puppId: number|string|undefined) => {
     console.log(puppId);
     const response = await fetch(
       `http://localhost:8080/puppy/puppies/${puppId}`,
