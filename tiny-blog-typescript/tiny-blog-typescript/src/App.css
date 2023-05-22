@@ -1,0 +1,45 @@
+
+.App {
+  margin:2rem;
+}
+
+.App-logo {
+  height: 5rem;
+  opacity: 0.95;
+}
+
+.App-header {
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  
+}
+
+.select-dropdown{
+ display:flex;
+ justify-content: center;
+ margin:1.25rem 0;
+}
+
+.card-wrapper{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card {
+  border:1px solid rgba(214, 123, 4, 0.708);
+  padding:1rem;
+  margin-top:1rem;
+  width:30rem;
+  
+}
+
+select{
+  font-weight: bolder;
+  border:1px solid rgba(214, 123, 4, 0.708);
+  padding:0.2rem;
+}
+
