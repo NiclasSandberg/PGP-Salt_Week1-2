@@ -2,21 +2,9 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import blog_logo from './img/blog-logo.png';
-import { mockData } from './interface';
 import Card from './Components/Card';
-//import { IPosts, mockData } from './interface';
-//import { getPosts } from './api';
+import { IPosts, mockData, ICategory } from './interface';
 
-interface IPosts {
-  id?: number;
-  title?: string;
-  body?: string;
-  tags?: string[]
-}
-
-interface ICategory{
-  tag?:string
-}
 
 function App() {
 
@@ -71,12 +59,8 @@ const categories:ICategory[] = [
         
       <div className="card-wrapper">
       {  mockData && mockData
-        .filter((post: { tags: string }) => post.tags.includes(`${category}`)).map((post: IPosts,index:number) => {
-            return <div className="card">
-            <h2>{post.title}</h2>
-            <p>{post.body}</p>
-            <p>{post.tags?.join(', ').toUpperCase()}.</p>
-          </div> 
+        .filter((post: { tags: string }) => post.tags.includes(`${category}`)).map((post: IPosts) => {
+            return  <Card post={post}/>
         })
       }
       </div>
