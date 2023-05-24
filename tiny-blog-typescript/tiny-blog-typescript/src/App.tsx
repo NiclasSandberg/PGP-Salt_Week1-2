@@ -8,16 +8,23 @@ import { IPosts, mockData, ICategory } from './interface';
 
 function App() {
 
-  const [mockDatas, setMockDatas] = useState<any>();
+  const [posts, setPosts] = useState<IPosts[]>([]);
   const [category, setCategory] = useState<string>("french");
-    
-  const fetchEmployees = async (): Promise<Array<IPosts> | string | undefined> => {
+
+  const categories: ICategory[] = [
+    { tag: "French" },
+    { tag: "History" },
+    { tag: "Mystery" },
+    { tag: "Love" }
+  ];
+
+  const fetchPosts = async (): Promise<IPosts[] | string | undefined> => {
     const api = 'https://dummyjson.com/posts'
     try {
       const response = await fetch(api)
       const data = await response.json()
       console.log(data.posts);
-      setMockDatas(data.posts);
+      setPosts(data.posts);
       return data
     } catch (error) {
       if (error) {
@@ -26,43 +33,39 @@ function App() {
     }
   }
 
-  useEffect(() => {
-   // fetchEmployees();
-  
-  }, [])
-
-const categories:ICategory[] = [
-  { tag: "French" },
-  { tag: "History" },
-  { tag: "Mystery" },
-  { tag: "Love" }
-];
+  const filterByCategory = (post: IPosts): boolean => {
+    return post.tags.includes(category);
+  };
 
   function handleChange(event: ChangeEvent<HTMLSelectElement>): void {
-    console.log(event.target.value);
-    setCategory(event.target.value.toLocaleLowerCase());
+    setCategory(event.target.value.toLowerCase());
   }
+
+  useEffect(() => {
+    fetchPosts();
+
+  }, [])
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={blog_logo} className="App-logo" alt="logo" />
       </header>
-
-       <div className="select-dropdown">
+      <div className="select-dropdown">
         <select onChange={handleChange}>
-        {categories.map((category) => (
-          <option value={category.tag}>{category.tag}</option>
-        ))}
+          {categories.map((category, index) => (
+            <option key={index} value={category.tag}>
+              {category.tag}
+            </option>
+          ))}
         </select>
-        </div>
-        
+      </div>
+
       <div className="card-wrapper">
-      {  mockData && mockData
-        .filter((post: { tags: string }) => post.tags.includes(`${category}`)).map((post: IPosts) => {
-            return  <Card post={post}/>
-        })
-      }
+        {posts &&
+          posts.filter(filterByCategory).map((post: IPosts) => {
+            return <Card key={post.id} post={post} />;
+          })}
       </div>
     </div>
   );
